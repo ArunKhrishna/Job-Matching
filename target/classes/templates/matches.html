@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Matches</title></head>
+<body>
+<h2>Match Candidates to Jobs</h2>
+<form th:action="@{/match}" method="post">
+    Select Candidate:
+    <select name="candidateId">
+        <option th:each="c : ${candidates}" th:value="${c.id}" th:text="${c.name}" 
+                th:selected="${c.id}==${selected}"></option>
+    </select>
+    <button type="submit">Match</button>
+</form>
+<table>
+    <tr><th>Job ID</th><th>Title</th><th>Required Skills</th></tr>
+    <tr th:each="m : ${matches}">
+        <td th:text="${m.id}"></td>
+        <td th:text="${m.title}"></td>
+        <td th:text="${#strings.arrayJoin(m.requiredSkills.toArray(), ', ')}"></td>
+    </tr>
+</table>
+<a th:href="@{/}">Home</a>
+</body>
+</html>
