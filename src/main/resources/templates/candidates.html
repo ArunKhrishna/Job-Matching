@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Candidates</title></head>
+<body>
+<h2>Candidates</h2>
+<form th:action="@{/candidates}" th:object="${candidate}" method="post">
+    Name: <input type="text" th:field="*{name}" required/>
+    Skills (comma-separated): <input type="text" th:field="*{skills}" required/>
+    <button type="submit">Add</button>
+</form>
+<table>
+    <tr><th>ID</th><th>Name</th><th>Skills</th></tr>
+    <tr th:each="c : ${candidates}">
+        <td th:text="${c.id}"></td>
+        <td th:text="${c.name}"></td>
+        <td th:text="${#strings.arrayJoin(c.skills.toArray(), ', ')}"></td>
+    </tr>
+</table>
+<a th:href="@{/}">Home</a>
+</body>
+</html>
